@@ -58,5 +58,26 @@ int mlcs(char a[], int n, char b[], int m) {
 
 
 int dlcs(char a[], int n, char b[], int m) {
-    return 2;
+    int length[MAX_SIZE + 1][MAX_SIZE + 1];
+
+    for (int i=0; i<=n; i++){
+        for (int j=0; j<=m; j++){
+            if(i==0 || j==0){
+                length[i][j] = 0;
+            }
+            else if(a[i-1] == b[j-1]){
+                length[i][j] = length[i-1][j-1] + 1;
+            }
+            else{
+                int max = length[i-1][j];
+                if(length[i-1][j] < length[i][j-1]){
+                    max = length[i][j-1];
+                }
+                length[i][j] = max;
+            }
+        }
+    }
+
+    return length[n][m];
+
 }
